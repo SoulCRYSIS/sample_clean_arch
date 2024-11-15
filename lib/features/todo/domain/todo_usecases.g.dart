@@ -438,5 +438,136 @@ class _UpdateTodoUsecaseProviderElement
   @override
   TodoEntity get todo => (origin as UpdateTodoUsecaseProvider).todo;
 }
+
+String _$getTodoUsecaseHash() => r'c46a75fcef926a1108a705bdc2b15a94dd429d09';
+
+/// See also [getTodoUsecase].
+@ProviderFor(getTodoUsecase)
+const getTodoUsecaseProvider = GetTodoUsecaseFamily();
+
+/// See also [getTodoUsecase].
+class GetTodoUsecaseFamily extends Family<AsyncValue<TodoEntity>> {
+  /// See also [getTodoUsecase].
+  const GetTodoUsecaseFamily();
+
+  /// See also [getTodoUsecase].
+  GetTodoUsecaseProvider call(
+    String id,
+  ) {
+    return GetTodoUsecaseProvider(
+      id,
+    );
+  }
+
+  @override
+  GetTodoUsecaseProvider getProviderOverride(
+    covariant GetTodoUsecaseProvider provider,
+  ) {
+    return call(
+      provider.id,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'getTodoUsecaseProvider';
+}
+
+/// See also [getTodoUsecase].
+class GetTodoUsecaseProvider extends AutoDisposeFutureProvider<TodoEntity> {
+  /// See also [getTodoUsecase].
+  GetTodoUsecaseProvider(
+    String id,
+  ) : this._internal(
+          (ref) => getTodoUsecase(
+            ref as GetTodoUsecaseRef,
+            id,
+          ),
+          from: getTodoUsecaseProvider,
+          name: r'getTodoUsecaseProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$getTodoUsecaseHash,
+          dependencies: GetTodoUsecaseFamily._dependencies,
+          allTransitiveDependencies:
+              GetTodoUsecaseFamily._allTransitiveDependencies,
+          id: id,
+        );
+
+  GetTodoUsecaseProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.id,
+  }) : super.internal();
+
+  final String id;
+
+  @override
+  Override overrideWith(
+    FutureOr<TodoEntity> Function(GetTodoUsecaseRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: GetTodoUsecaseProvider._internal(
+        (ref) => create(ref as GetTodoUsecaseRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        id: id,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<TodoEntity> createElement() {
+    return _GetTodoUsecaseProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is GetTodoUsecaseProvider && other.id == id;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, id.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin GetTodoUsecaseRef on AutoDisposeFutureProviderRef<TodoEntity> {
+  /// The parameter `id` of this provider.
+  String get id;
+}
+
+class _GetTodoUsecaseProviderElement
+    extends AutoDisposeFutureProviderElement<TodoEntity>
+    with GetTodoUsecaseRef {
+  _GetTodoUsecaseProviderElement(super.provider);
+
+  @override
+  String get id => (origin as GetTodoUsecaseProvider).id;
+}
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

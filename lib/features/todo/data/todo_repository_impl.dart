@@ -25,4 +25,8 @@ class TodoRepositoryImpl extends TodoRepository {
   @override
   Future<void> updateTodo(TodoEntity todo) async =>
       todoFirestoreDataSource.updateTodo(TodoModel.fromEntity(todo));
+
+  @override
+  Future<TodoEntity> getTodo(String id) async =>
+      (await todoFirestoreDataSource.getTodo(id)).toEntity();
 }

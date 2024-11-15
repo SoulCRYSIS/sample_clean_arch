@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'firebase.dart';
+part of 'services_injection.dart';
 
 // **************************************************************************
 // RiverpodGenerator

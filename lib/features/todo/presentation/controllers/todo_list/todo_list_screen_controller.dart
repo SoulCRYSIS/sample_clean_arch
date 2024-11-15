@@ -24,20 +24,6 @@ class TodoListScreenController extends _$TodoListScreenController {
     );
   }
 
-  Future<void> addTodo(TodoEntity todo) async {
-    state = await AsyncValue.guard(
-      () async {
-        try {
-          final todos = [...state.value!.todos, todo];
-          await ref.watch(addTodoUsecaseProvider(todo).future);
-          return TodoListScreenState(todos: todos);
-        } on FirebaseException catch (_) {
-          throw ServerProblemException();
-        }
-      },
-    );
-  }
-
   Future<void> updateTodo(TodoEntity todo) async {
     state = await AsyncValue.guard(
       () async {
@@ -53,10 +39,18 @@ class TodoListScreenController extends _$TodoListScreenController {
   }
 
   Future<void> markDone(String id) async {
-    final todo = state.value!.todos.firstWhere(
-      (element) => element.id == id,
-    );
-    await updateTodo(todo.copyWith(isCompleted: true));
+    try {
+      final todo = state.value!.todos
+          .firstWhere(
+            (element) => element.id == id,
+          )
+          .copyWith(isCompleted: true);
+      final todos = state.value!.todos.map((e) => e.id == todo.id ? todo : e).toList();
+      await ref.watch(updateTodoUsecaseProvider(todo).future);
+      state = AsyncData(TodoListScreenState(todos: todos));
+    } on FirebaseException catch (_) {
+      throw ServerProblemException();
+    }
   }
 }
 

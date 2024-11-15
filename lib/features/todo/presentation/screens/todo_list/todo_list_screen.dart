@@ -14,34 +14,47 @@ class TodoListScreen extends ConsumerWidget {
     final screenController = ref.read(todoListScreenControllerProvider.notifier);
 
     return Scaffold(
-      body: Column(
-        children: [
-          Row(
+      appBar: AppBar(
+        title: const Text('Todo List'),
+      ),
+      body: Center(
+        child: SizedBox(
+          width: 480,
+          child: Column(
             children: [
-              Expanded(
-                child: TextField(
-                  onSubmitted: (value) => screenController.searchTodos(value),
-                ),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Search',
+                      ),
+                      onSubmitted: (value) => screenController.searchTodos(value),
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  IconButton(
+                    icon: const Icon(Icons.add_box),
+                    onPressed: () => context.go(AppRoutes.addTodo),
+                  )
+                ],
               ),
-              const SizedBox(width: 16),
-              IconButton(
-                icon: const Icon(Icons.add_box),
-                onPressed: () => context.go(AppRoutes.addTodo),
+              const SizedBox(height: 32),
+              Expanded(
+                child: ref.watch(todoListScreenControllerProvider).when(
+                      data: (data) => ListView.builder(
+                        itemCount: data.todos.length,
+                        itemBuilder: (context, index) =>
+                            TodoCard(key: ValueKey(data.todos[index].id), data.todos[index]),
+                      ),
+                      loading: () => const Center(child: CircularProgressIndicator()),
+                      error: (error, stackTrace) => ErrorPlaceholder(error, stackTrace),
+                    ),
               )
             ],
           ),
-          const Divider(),
-          Expanded(
-            child: ref.watch(todoListScreenControllerProvider).when(
-                  data: (data) => ListView.builder(
-                    itemCount: data.todos.length,
-                    itemBuilder: (context, index) => TodoCard(data.todos[index]),
-                  ),
-                  loading: () => const Center(child: CircularProgressIndicator()),
-                  error: (error, stackTrace) => ErrorPlaceholder(error),
-                ),
-          )
-        ],
+        ),
       ),
     );
   }

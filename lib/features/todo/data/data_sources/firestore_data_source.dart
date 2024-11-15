@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:sample_clean_arch/core/injections/firebase.dart';
+import 'package:sample_clean_arch/core/injections/services_injection.dart';
 import 'package:sample_clean_arch/features/todo/data/models/todo_model.dart';
 
 part 'firestore_data_source.g.dart';
@@ -29,4 +29,9 @@ class TodoFirestoreDataSource {
 
   Future<void> updateTodo(TodoModel todo) async =>
       todoCollection.doc(todo.id).update(todo.toJson());
+
+  Future<TodoModel> getTodo(String id) async {
+    final doc = await todoCollection.doc(id).get();
+    return TodoModel.fromJson(doc.data()!);
+  }
 }

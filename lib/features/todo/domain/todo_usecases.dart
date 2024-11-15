@@ -21,3 +21,6 @@ Future<void> addTodoUsecase(Ref ref, TodoEntity todo) async => _repository(ref).
 
 @riverpod
 Future<void> updateTodoUsecase(Ref ref, TodoEntity todo) async => _repository(ref).updateTodo(todo);
+
+@riverpod
+Future<TodoEntity> getTodoUsecase(Ref ref, String id) async => _repository(ref).getTodo(id);

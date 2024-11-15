@@ -14,4 +14,5 @@ abstract class TodoRepository {
   Future<List<TodoEntity>> searchTodos(String seachWord);
   Future<void> addTodo(TodoEntity todo);
   Future<void> updateTodo(TodoEntity todo);
+  Future<TodoEntity> getTodo(String id);
 }

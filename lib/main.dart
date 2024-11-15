@@ -20,6 +20,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp.router(
       title: 'SIMS property',
       routerConfig: AppRoutes.router,
+      theme: ThemeData.from(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple, brightness: Brightness.dark),
+        useMaterial3: true,
+      ),
     );
   }
 }
