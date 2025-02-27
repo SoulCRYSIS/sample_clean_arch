@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:sample_clean_arch/core/widgets/error_dialog.dart';
 
-extension FutureUtil on Future {
+extension FutureUtil<T> on Future<T> {
   Future<void> showDialogOnError(BuildContext context) async {
     try {
       await this;
@@ -18,7 +18,7 @@ extension FutureUtil on Future {
     }
   }
 
-  Future<T> showLoadingDialog<T>(BuildContext context) async {
+  Future<T> showLoadingDialog(BuildContext context) async {
     late final BuildContext dialogContext;
     final dialogShownCompleter = Completer<void>();
 
